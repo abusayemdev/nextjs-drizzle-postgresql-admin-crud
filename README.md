@@ -42,23 +42,44 @@ BETTER_AUTH_URL="http://localhost:3000"
 
 ---
 
-## Database Setup
 
-The schema is defined with Drizzle ORM in `lib/db/schema.ts`. It contains:
+## Database
 
-**Better Auth tables**
-- `user` — accounts
-- `session` — active sessions
-- `account` — credentials (hashed passwords) and provider data
-- `verification` — verification tokens
+This project uses **PostgreSQL** with **Drizzle ORM**.
 
-**Application tables**
-- `supplier` —  suppliers
+The database connection is configured in:
 
-The connection pool is configured in `lib/db/index.ts` using `DATABASE_URL`.
-Create the tables in your Neon database or local postgresql before running the app (e.g. by introspecting
-`lib/db/schema.ts` with Drizzle Kit, or by applying equivalent SQL). The Better Auth
-tables must match Better Auth's expected structure.
+```text
+lib/db/index.ts
+```
+
+The Drizzle schema is located in:
+
+```text
+lib/db/schema.ts
+```
+
+Drizzle configuration:
+
+```text
+drizzle.config.ts
+```
+
+### Generate migrations
+
+After making changes to the schema:
+
+```bash
+npx drizzle-kit generate
+```
+
+### Apply migrations
+
+```bash
+npx drizzle-kit migrate
+```
+
+Make sure `DATABASE_URL` is configured before running these commands.
 
 ---
 
