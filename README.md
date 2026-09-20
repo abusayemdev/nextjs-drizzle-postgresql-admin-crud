@@ -20,6 +20,48 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+
+## Environment Variables
+
+Create a `.env.local` file in the project root with the following variables. These are
+**not** included in the repository for security reasons and must be provided manually.
+
+```bash
+# Neon / PostgreSQL connection string (required)
+DATABASE_URL="postgresql://user:password@host/db?sslmode=require"
+
+# Better Auth secret — generate with: openssl rand -base64 32 (required)
+BETTER_AUTH_SECRET="your-generated-secret"
+
+# Base URL of the app (required in production; e.g. https://erevent.sa)
+BETTER_AUTH_URL="http://localhost:3000"
+```
+
+> On Vercel, `VERCEL_URL` / `VERCEL_PROJECT_PRODUCTION_URL` are detected automatically,
+> so `BETTER_AUTH_URL` is mainly needed for local development and custom domains.
+
+---
+
+## Database Setup
+
+The schema is defined with Drizzle ORM in `lib/db/schema.ts`. It contains:
+
+**Better Auth tables**
+- `user` — accounts
+- `session` — active sessions
+- `account` — credentials (hashed passwords) and provider data
+- `verification` — verification tokens
+
+**Application tables**
+- `supplier` —  suppliers
+
+The connection pool is configured in `lib/db/index.ts` using `DATABASE_URL`.
+Create the tables in your Neon database or local postgresql before running the app (e.g. by introspecting
+`lib/db/schema.ts` with Drizzle Kit, or by applying equivalent SQL). The Better Auth
+tables must match Better Auth's expected structure.
+
+---
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
