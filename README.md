@@ -37,8 +37,6 @@ BETTER_AUTH_SECRET="your-generated-secret"
 BETTER_AUTH_URL="http://localhost:3000"
 ```
 
-> On Vercel, `VERCEL_URL` / `VERCEL_PROJECT_PRODUCTION_URL` are detected automatically,
-> so `BETTER_AUTH_URL` is mainly needed for local development and custom domains.
 
 ---
 
